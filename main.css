@@ -111,3 +111,11 @@ td h6[id] {
 td h6[id]:hover {
     background-color: #fff2b2;
 }
+
+canvas {
+    width: 500px;
+    height: 500px;
+    top: 0;
+    left: 0;
+    background-color: lightgrey;
+}
