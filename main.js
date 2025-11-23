@@ -1,6 +1,7 @@
 const canvas = document.getElementById('canvas');
 const output = document.getElementById('output');
 const button = document.getElementById('button');
+const displaybutton = document.getElementById('displaybutton');
 const sortbutton = document.getElementById('sortbutton');
 sortbutton.addEventListener('click', sort);
 button.addEventListener('click', createlist);
@@ -33,7 +34,9 @@ function draw(fillcolor, innum) {
         ctx.fillRect(x, y, width, height);
     }
 }
-draw('black', -1);
+function displaylist() {
+    draw('black', -1);
+}
 async function sort(delay = 2000) {
     draw('black', -1);
     do {
