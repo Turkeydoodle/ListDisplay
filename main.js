@@ -1,11 +1,15 @@
 const canvas = document.getElementById('canvas');
 const output = document.getElementById('output');
 const button = document.getElementById('button');
+const sortbutton = document.getElementById('sortbutton');
+sortbutton.addEventListener('click', sort);
 button.addEventListener('click', createlist);
 const ctx = canvas.getContext('2d');
+let listsorted = false;
 canvas.width = 485;
 canvas.height = 500;
 let list = [];
+const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 function createlist() {
     list = [];
     for (let i = 0; i < 24; i++) {
@@ -14,16 +18,35 @@ function createlist() {
     }
     output.innerHTML = list;
 }
-function draw() {
+function draw(fillcolor, innum) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 0; i < list.length; i++) {
         const x = i * 20;
         const y = canvas.height - list[i] * 10;
         const width = 15;
         const height = list[i] * 10;
-        ctx.fillStyle = 'black';
+        if (i === innum) {
+            ctx.fillStyle = fillcolor;
+        } else {
+            ctx.fillStyle = 'black';
+        }
         ctx.fillRect(x, y, width, height);
     }
-    requestAnimationFrame(draw);
 }
-draw();
+draw('black', -1);
+async function sort(delay = 2000) {
+    draw('black', -1);
+    do {
+        listsorted = true;
+        for (let i = 0; i < list.length - 1; i++) {
+            if (list[i] > list[i + 1]) {
+                let temp = list[i];
+                list[i] = list[i + 1];
+                list[i + 1] = temp;
+                listsorted = false;
+                draw('red', i);
+                await sleep(delay);
+            }
+        }
+    } while (!listsorted);
+}
