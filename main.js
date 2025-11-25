@@ -4,6 +4,7 @@ const button = document.getElementById('button');
 const displaybutton = document.getElementById('displaybutton');
 const sortbutton = document.getElementById('sortbutton');
 sortbutton.addEventListener('click', sort);
+sortbutton.disabled = true;
 button.addEventListener('click', createlist);
 const ctx = canvas.getContext('2d');
 let listsorted = false;
@@ -18,6 +19,8 @@ function createlist() {
         list.push(item);
     }
     output.innerHTML = list;
+    draw('black', -1);
+    sortbutton.disabled = false;
 }
 function draw(fillcolor, innum) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -37,7 +40,9 @@ function draw(fillcolor, innum) {
 function displaylist() {
     draw('black', -1);
 }
-async function sort(delay = 2000) {
+async function sort(delay = 1000) {
+    if (!list.length) return;
+    sortbutton.disabled = true;
     draw('black', -1);
     do {
         listsorted = true;
@@ -52,4 +57,6 @@ async function sort(delay = 2000) {
             }
         }
     } while (!listsorted);
+    draw('black', -1);
+    sortbutton.disabled = false;
 }
