@@ -1,6 +1,7 @@
 const canvas = document.getElementById('canvas');
 const output = document.getElementById('output');
 const button = document.getElementById('button');
+const sortedoutput = document.getElementById('sortedoutput');
 const displaybutton = document.getElementById('displaybutton');
 const sortbutton = document.getElementById('sortbutton');
 sortbutton.addEventListener('click', sort);
@@ -39,6 +40,7 @@ function draw(fillcolor, innum) {
 }
 function displaylist() {
     draw('black', -1);
+    sortedoutput.innerHTML = list;
 }
 async function sort(delay = 1000) {
     if (!list.length) return;
@@ -58,5 +60,6 @@ async function sort(delay = 1000) {
         }
     } while (!listsorted);
     draw('black', -1);
+    sortedoutput.innerHTML = list;
     sortbutton.disabled = false;
 }
